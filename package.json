@@ -1,0 +1,23 @@
+{
+  "name": "auth",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/banyudu/auth.git"
+  },
+  "keywords": [
+    "auth",
+    "serverless"
+  ],
+  "author": "banyudu",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/banyudu/auth/issues"
+  },
+  "homepage": "https://github.com/banyudu/auth#readme"
+}
