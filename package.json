@@ -19,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/banyudu/auth/issues"
   },
-  "homepage": "https://github.com/banyudu/auth#readme"
+  "homepage": "https://github.com/banyudu/auth#readme",
+  "devDependencies": {
+    "serverless-domain-manager": "^2.6.13",
+    "serverless-webpack": "^5.2.0"
+  }
 }
