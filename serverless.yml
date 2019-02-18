@@ -1,0 +1,63 @@
+service:
+  name: auth
+
+# Add the serverless-webpack plugin
+plugins:
+  - serverless-webpack
+  - serverless-domain-manager
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  environment:
+    stage: ${opt:stage, self:provider.stage}
+    DYNAMODB_TABLE: ${self:service}-${self:provider.environment.stage}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+
+functions:
+  auth:
+    handler: index.handler
+
+resources:
+  Resources:
+    AuthDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}
+
+custom:
+  webpack:
+    includeModules:
+      forceExclude:
+        - aws-sdk
+  domains:
+    prod: auth.banyudu.com
+    staging: staging-auth.banyudu.com
+    dev: dev-auth.banyudu.com
+
+  customDomain:
+    domainName: ${self:custom.domains.${self:provider.environment.stage}} # Change this to your domain.
+    basePath: 'auth' # This will be prefixed to all routes
+    stage: ${self:provider.environment.stage}
+    createRoute53Record: true
