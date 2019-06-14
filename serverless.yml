@@ -15,6 +15,7 @@ provider:
 functions:
   auth:
     handler: index.handler
+    cors: true
 
 custom:
   webpack:
