@@ -48,5 +48,5 @@ export const test = function (event: any, context: any, cb: any) {
     statusCode: 200,
     headers: { 'Content-Type': 'text/plain' },
     body: { event, context }
-  }
+  })
 }
