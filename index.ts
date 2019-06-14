@@ -47,6 +47,6 @@ export const test = function (event: any, context: any, cb: any) {
   cb(null, {
     statusCode: 200,
     headers: { 'Content-Type': 'text/plain' },
-    body: { event, context }
+    body: JSON.stringify({ event, context })
   })
 }
