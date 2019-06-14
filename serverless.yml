@@ -15,7 +15,17 @@ provider:
 functions:
   auth:
     handler: index.handler
-    cors: true
+  test:
+    handler: index.test
+    events:
+      - http:
+          method: get
+          path: /test
+          authorizer:
+            name: auth
+            resultTtlInSeconds: 0
+            identitySource: method.request.header.Authorization
+            type: token
 
 custom:
   webpack:
