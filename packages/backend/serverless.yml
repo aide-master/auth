@@ -33,9 +33,9 @@ custom:
       forceExclude:
         - aws-sdk
   domains:
-    prod: authorize.banyudu.com
-    staging: staging-authorize.banyudu.com
-    dev: dev-authorize.banyudu.com
+    prod: authorize.aidemaster.com
+    staging: staging-authorize.aidemaster.com
+    dev: dev-authorize.aidemaster.com
 
   customDomain:
     domainName: ${self:custom.domains.${self:provider.environment.stage}} # Change this to your domain.
