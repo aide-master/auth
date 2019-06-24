@@ -27,7 +27,7 @@ const generatePolicy = function (principalId: any, effect: any, resource: any) {
 }
 
 export const handler = function (event: any, context: any, cb: any) {
-  const token = event.authorizationToken
+  const token = event.authorizationToken || ''
   switch (token.toLowerCase()) {
     case 'allow':
       cb(null, generatePolicy('user', 'Allow', event.methodArn))
