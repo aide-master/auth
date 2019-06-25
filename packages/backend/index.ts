@@ -1,5 +1,7 @@
 /* eslint-disable standard/no-callback-literal */
 
+import * as jwt from 'jsonwebtoken'
+
 // Help function to generate an IAM policy
 const generatePolicy = function (principalId: any, effect: any, resource: any) {
   const authResponse: any = {}
@@ -48,5 +50,14 @@ export const test = function (event: any, context: any, cb: any) {
     statusCode: 200,
     headers: { 'Content-Type': 'text/plain' },
     body: JSON.stringify({ event, context })
+  })
+}
+
+export const generate = function (event: any, context: any, cb: any) {
+  const accessToken = jwt.sign({ id: event.queryStringParameters.id }, process.env.jwtSecret || '', { expiresIn: '1d' })
+  cb(null, {
+    statusCode: 200,
+    headers: { 'Content-Type': 'text/plain' },
+    body: JSON.stringify({ accessToken })
   })
 }

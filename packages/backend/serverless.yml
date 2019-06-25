@@ -28,6 +28,16 @@ functions:
             resultTtlInSeconds: 0
             identitySource: method.request.header.Authorization
             type: token
+  generate:
+    handler: index.generate
+    events:
+      - http:
+          method: get
+          path: /debug/generate
+          request:
+            parameters:
+              querystrings:
+                id: true
 
 custom:
   webpack:
