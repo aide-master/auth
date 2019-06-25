@@ -38,6 +38,7 @@ functions:
             parameters:
               querystrings:
                 id: true
+                validity: false
 
 custom:
   webpack:

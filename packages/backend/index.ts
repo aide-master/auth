@@ -30,18 +30,12 @@ const generatePolicy = function (principalId: any, effect: any, resource: any) {
 
 export const handler = function (event: any, context: any, cb: any) {
   const token = event.authorizationToken || ''
-  switch (token.toLowerCase()) {
-    case 'allow':
-      cb(null, generatePolicy('user', 'Allow', event.methodArn))
-      break
-    case 'deny':
-      cb(null, generatePolicy('user', 'Deny', event.methodArn))
-      break
-    case 'unauthorized':
-      cb('Unauthorized') // Return a 401 Unauthorized response
-      break
-    default:
-      cb('Error: Invalid token')
+  try {
+    const decoded: any = jwt.verify(token, process.env.jwtSecret || '') 
+    cb(null, generatePolicy(decoded.id, 'Allow', event.methodArn))
+    // cb(null, generatePolicy('user', 'Deny', event.methodArn))
+  } catch (error) {
+    cb('Error: Invalid token')
   }
 }
 
@@ -54,7 +48,9 @@ export const test = function (event: any, context: any, cb: any) {
 }
 
 export const generate = function (event: any, context: any, cb: any) {
-  const accessToken = jwt.sign({ id: event.queryStringParameters.id }, process.env.jwtSecret || '', { expiresIn: '1d' })
+  const id = event.queryStringParameters.id
+  const expiresIn = event.queryStringParameters.validity || '1d'
+  const accessToken = jwt.sign({ id }, process.env.jwtSecret || '', { expiresIn })
   cb(null, {
     statusCode: 200,
     headers: { 'Content-Type': 'text/plain' },
