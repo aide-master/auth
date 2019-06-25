@@ -31,7 +31,7 @@ const generatePolicy = function (principalId: any, effect: any, resource: any) {
 export const handler = function (event: any, context: any, cb: any) {
   const token = event.authorizationToken || ''
   try {
-    const decoded: any = jwt.verify(token, process.env.jwtSecret || '') 
+    const decoded: any = jwt.verify(token, process.env.jwtSecret || '')
     cb(null, generatePolicy(decoded.id, 'Allow', event.methodArn))
     // cb(null, generatePolicy('user', 'Deny', event.methodArn))
   } catch (error) {
