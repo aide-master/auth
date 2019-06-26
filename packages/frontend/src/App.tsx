@@ -26,7 +26,6 @@ const Home: React.FC = () => {
         <a
           className='App-link'
           href={AUTH_LINK}
-          target='_blank'
           rel='noopener noreferrer'
         >
           Login with github
