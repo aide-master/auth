@@ -3,7 +3,24 @@ import logo from './logo.svg'
 import './App.css'
 import { AUTH_LINK } from './providers/github'
 
-const App: React.FC = () => {
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import Loadable from 'react-loadable'
+
+const MyLoadingComponent = ({isLoading, error}: any) => {
+  // Handle the loading state
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  // Handle the error state
+  else if (error) {
+    return <div>Sorry, there was a problem loading the page.</div>;
+  }
+  else {
+    return null;
+  }
+};
+
+const Home: React.FC = () => {
   return (
     <div className='App'>
       <header className='App-header'>
@@ -21,4 +38,18 @@ const App: React.FC = () => {
   )
 }
 
-export default App
+const AsyncGithubCallback = Loadable({
+  loader: () => import('./callbacks/github'),
+  loading: MyLoadingComponent
+})
+
+export default function App () {
+  return (
+    <Router>
+      <div>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/callback/github" component={AsyncGithubCallback} />
+      </div>
+    </Router>
+  )
+}
