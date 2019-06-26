@@ -6,19 +6,17 @@ import { AUTH_LINK } from './providers/github'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Loadable from 'react-loadable'
 
-const MyLoadingComponent = ({isLoading, error}: any) => {
+const MyLoadingComponent = ({ isLoading, error }: any) => {
   // Handle the loading state
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
+  } else if (error) {
+    // Handle the error state
+    return <div>Sorry, there was a problem loading the page.</div>
+  } else {
+    return null
   }
-  // Handle the error state
-  else if (error) {
-    return <div>Sorry, there was a problem loading the page.</div>;
-  }
-  else {
-    return null;
-  }
-};
+}
 
 const Home: React.FC = () => {
   return (
@@ -47,8 +45,8 @@ export default function App () {
   return (
     <Router>
       <div>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/callback/github" component={AsyncGithubCallback} />
+        <Route exact path='/' component={Home} />
+        <Route exact path='/callback/github' component={AsyncGithubCallback} />
       </div>
     </Router>
   )
