@@ -8,7 +8,8 @@ const GithubCallback: React.FC = () => {
   useEffect(() => {
     const params = new URLSearchParams(location.search)
     const code = params.get('code') || ''
-    login(code)
+    const state = params.get('state') || ''
+    login(code, state)
   }, [location.search])
   return (
     <div className='Github'>
