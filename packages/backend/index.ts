@@ -60,9 +60,11 @@ export const githubAuth: APIGatewayProxyHandler = async event => {
   const qs = event.queryStringParameters || {}
   const code = qs.code
   const accessToken = await github.getAccessToken(code)
+  const userInfo = await github.getUserInfo(accessToken)
+  console.log(userInfo)
   return {
     statusCode: 200,
     headers: { 'Content-Type': 'text/plain' },
-    body: JSON.stringify({ accessToken })
+    body: JSON.stringify({ code })
   }
 }

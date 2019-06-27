@@ -39,6 +39,12 @@ functions:
               querystrings:
                 id: true
                 validity: false
+  github:
+    handler: index.githubAuth
+    events:
+      - http:
+          method: post
+          path: /github
 
 custom:
   webpack:
