@@ -2,6 +2,7 @@
 
 import * as jwt from 'jsonwebtoken'
 import * as github from './service/github'
+import * as utils from './utils'
 import { CustomAuthorizerResult, APIGatewayProxyHandler, CustomAuthorizerHandler } from 'aws-lambda'
 
 // Help function to generate an IAM policy
@@ -57,7 +58,7 @@ export const generate: APIGatewayProxyHandler = async event => {
 }
 
 export const githubAuth: APIGatewayProxyHandler = async event => {
-  const qs = event.queryStringParameters || {}
+  const qs = utils.parseReqBody(event.body)
   const code = qs.code
   const accessToken = await github.getAccessToken(code)
   const userInfo = await github.getUserInfo(accessToken)
