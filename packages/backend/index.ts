@@ -1,5 +1,6 @@
 /* eslint-disable standard/no-callback-literal */
 
+import './sentry'
 import * as jwt from 'jsonwebtoken'
 import * as github from './service/github'
 import * as utils from './utils'
