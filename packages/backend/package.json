@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "sls offline start",
     "lint": "npx standard"
   },
   "repository": {
