@@ -13,9 +13,9 @@ provider:
   environment:
     stage: ${opt:stage, self:provider.stage}
     jwtSecret: ${ssm:/${self:provider.environment.stage}/auth/jwtSecret}
-    dbHost: ${ssm:/${self:provider.environment.stage}/auth/dbHost}
-    dbUser: ${ssm:/${self:provider.environment.stage}/auth/dbUser}
-    dbPassword: ${ssm:/${self:provider.environment.stage}/auth/dbPassword}
+    dbHost: ${ssm:/${self:provider.environment.stage}/auth/dbhost}
+    dbUser: ${ssm:/${self:provider.environment.stage}/auth/dbuser}
+    dbPassword: ${ssm:/${self:provider.environment.stage}/auth/dbpassword}
     GITHUB_CLIENT_ID: ${ssm:/oauth/github/clientId}
     GITHUB_CLIENT_SECRET: ${ssm:/oauth/github/clientSecret}
 
