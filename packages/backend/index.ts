@@ -5,6 +5,7 @@ import * as jwt from 'jsonwebtoken'
 import * as github from './service/github'
 import * as utils from './utils'
 import { CustomAuthorizerResult, APIGatewayProxyHandler, CustomAuthorizerHandler } from 'aws-lambda'
+import { init } from './db'
 
 // Help function to generate an IAM policy
 const generatePolicy = function (principalId: string, effect: string, resource: string | string[]): CustomAuthorizerResult {
@@ -32,7 +33,6 @@ export const handler: CustomAuthorizerHandler = async event => {
   try {
     const decoded: any = jwt.verify(token, process.env.jwtSecret || '')
     return generatePolicy(decoded.id, 'Allow', event.methodArn)
-    // cb(null, generatePolicy('user', 'Deny', event.methodArn))
   } catch (error) {
     return generatePolicy('', 'Deny', event.methodArn)
   }
@@ -59,6 +59,7 @@ export const generate: APIGatewayProxyHandler = async event => {
 }
 
 export const githubAuth: APIGatewayProxyHandler = async event => {
+  await init()
   const qs = utils.parseReqBody(event.body)
   const code = qs.code
   const state = qs.state

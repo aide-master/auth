@@ -20,5 +20,6 @@ export async function init () {
 
 export async function getConnection (): Promise<mongoose.Connection> {
   await init()
+  console.log('conn is: ', conn)
   return conn!
 }
