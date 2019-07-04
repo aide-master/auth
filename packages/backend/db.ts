@@ -9,6 +9,7 @@ const uri = `mongodb+srv://${dbUser}:${dbPassword}@${dbHost}/test?retryWrites=tr
 export async function init () {
   if (conn == null) {
     conn = await mongoose.createConnection(uri, {
+      useNewUrlParser: true,
       // Buffering means mongoose will queue up operations if it gets
       // disconnected from MongoDB and send them when it reconnects.
       // With serverless, better to fail fast if not connected.
