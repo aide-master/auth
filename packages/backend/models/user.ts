@@ -1,6 +1,12 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model, Document } from 'mongoose'
 
 const { String } = Schema.Types
+
+interface User extends Document {
+  group: string;
+  salt?: string;
+  password?: string;
+}
 
 const UserSchema = new Schema({
   group: { // user group
@@ -13,4 +19,4 @@ const UserSchema = new Schema({
   timestamps: true
 })
 
-export default model('User', UserSchema)
+export default model<User>('User', UserSchema)

@@ -19,7 +19,7 @@ export async function getAccessToken (code: string, state: string) {
   }
 }
 
-type UserInfo = {
+export type UserInfo = {
   avatar_url: string;
   bio: string | null;
   blog: string;

@@ -1,6 +1,15 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model, Document } from 'mongoose'
 
-const { String, Date } = Schema.Types
+const { String } = Schema.Types
+
+interface Profile extends Document {
+  nickname: string;
+  gender?: string;
+  birthday?: Date;
+  address?: string;
+  zipcode?: string;
+  email?: string;
+}
 
 const ProfileSchema = new Schema({
   nickname: {
@@ -8,7 +17,7 @@ const ProfileSchema = new Schema({
     required: [true, 'name field is required']
   },
   gender: String, // zip code
-  birthday: Date, // zip code
+  birthday: Schema.Types.Date, // zip code
   address: String, // zip code
   zipcode: String, // zip code
   email: String // for notifications, not valid for auth
@@ -16,4 +25,4 @@ const ProfileSchema = new Schema({
   timestamps: true
 })
 
-export default model('Profile', ProfileSchema)
+export default model<Profile>('Profile', ProfileSchema)

@@ -6,9 +6,6 @@ import * as github from './service/github'
 import * as utils from './utils'
 import { CustomAuthorizerResult, APIGatewayProxyHandler, CustomAuthorizerHandler } from 'aws-lambda'
 import { init } from './db'
-import UserModel from './models/user'
-import AuthModel from './models/auth'
-import ProfileModel from './models/profile'
 
 // Help function to generate an IAM policy
 const generatePolicy = function (principalId: string, effect: string, resource: string | string[]): CustomAuthorizerResult {

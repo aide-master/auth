@@ -1,6 +1,13 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model, Document } from 'mongoose'
 
 const { String, ObjectId } = Schema.Types
+
+interface Auth extends Document {
+  group: string;
+  type: string;
+  id: string;
+  userId: string;
+}
 
 const AuthSchema = new Schema({
   group: { // user group
@@ -23,4 +30,4 @@ const AuthSchema = new Schema({
   timestamps: true
 })
 
-export default model('Auth', AuthSchema)
+export default model<Auth>('Auth', AuthSchema)
