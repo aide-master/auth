@@ -6,6 +6,7 @@ import * as github from './service/github'
 import * as utils from './utils'
 import { CustomAuthorizerResult, APIGatewayProxyHandler, CustomAuthorizerHandler } from 'aws-lambda'
 import { init } from './db'
+import * as UserHelper from './user'
 
 // Help function to generate an IAM policy
 const generatePolicy = function (principalId: string, effect: string, resource: string | string[]): CustomAuthorizerResult {
@@ -65,9 +66,10 @@ export const githubAuth: APIGatewayProxyHandler = async event => {
   const state = qs.state
   const { token } = await github.getAccessToken(code, state)
   const userInfo = await github.getUserInfo(token)
+  const userId = await UserHelper.getUserIdByGithubUserInfo(userInfo)
   return {
     statusCode: 200,
     headers: { 'Content-Type': 'text/plain' },
-    body: JSON.stringify(userInfo)
+    body: JSON.stringify({ userId })
   }
 }

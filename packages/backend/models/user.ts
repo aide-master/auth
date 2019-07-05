@@ -1,6 +1,6 @@
 import { Schema, model, Document } from 'mongoose'
 
-const { String } = Schema.Types
+const { String, ObjectId } = Schema.Types
 
 interface User extends Document {
   group: string;
@@ -12,6 +12,10 @@ const UserSchema = new Schema({
   group: { // user group
     type: String,
     required: [true, 'group field is required']
+  },
+  profile: {
+    type: ObjectId,
+    required: true
   },
   salt: String, // salt for password
   password: String // password
