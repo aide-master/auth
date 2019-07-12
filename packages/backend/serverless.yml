@@ -3,6 +3,7 @@ service:
 
 # Add the serverless-webpack plugin
 plugins:
+  - serverless-sentry
   - serverless-webpack
   - serverless-domain-manager
   - serverless-offline
@@ -18,6 +19,7 @@ provider:
     dbPassword: ${ssm:/${self:provider.environment.stage}/auth/dbpassword}
     GITHUB_CLIENT_ID: ${ssm:/oauth/github/clientId}
     GITHUB_CLIENT_SECRET: ${ssm:/oauth/github/clientSecret}
+    sentryDSN: ${ssm:/${self:provider.environment.stage}/auth/sentryDSN}
 
 functions:
   auth:
@@ -66,3 +68,6 @@ custom:
     basePath: 'auth' # This will be prefixed to all routes
     stage: ${self:provider.environment.stage}
     createRoute53Record: true
+
+  sentry:
+    dsn: ${self:provider.environment.sentryDSN}

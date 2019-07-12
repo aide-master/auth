@@ -1,5 +1,6 @@
 /* eslint-disable standard/no-callback-literal */
 
+import * as Raven from 'raven'
 import './sentry'
 import * as jwt from 'jsonwebtoken'
 import * as github from './service/github'
@@ -7,6 +8,8 @@ import * as utils from './utils'
 import { CustomAuthorizerResult, APIGatewayProxyHandler, CustomAuthorizerHandler } from 'aws-lambda'
 import { init } from './db'
 import * as UserHelper from './user'
+
+const RavenLambdaWrapper = require('serverless-sentry-lib')
 
 // Help function to generate an IAM policy
 const generatePolicy = function (principalId: string, effect: string, resource: string | string[]): CustomAuthorizerResult {
@@ -59,7 +62,7 @@ export const generate: APIGatewayProxyHandler = async event => {
   }
 }
 
-export const githubAuth: APIGatewayProxyHandler = async event => {
+const _githubAuth: APIGatewayProxyHandler = async event => {
   await init()
   const qs = utils.parseReqBody(event.body)
   const code = qs.code
@@ -74,3 +77,5 @@ export const githubAuth: APIGatewayProxyHandler = async event => {
     body: JSON.stringify({ userId })
   }
 }
+
+export const githubAuth = RavenLambdaWrapper.handler(Raven, _githubAuth)

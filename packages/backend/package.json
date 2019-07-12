@@ -27,8 +27,10 @@
     "@types/mongoose": "^5.5.7",
     "@types/node": "^12.0.10",
     "@types/qs": "^6.5.3",
+    "@types/raven": "^2.5.3",
     "serverless-domain-manager": "^2.6.13",
     "serverless-offline": "^5.4.4",
+    "serverless-sentry": "^1.2.0",
     "serverless-webpack": "^5.2.0",
     "ts-loader": "^5.3.3",
     "typescript": "^3.3.3",
@@ -39,6 +41,8 @@
     "axios": "^0.19.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.2",
-    "qs": "^6.7.0"
+    "qs": "^6.7.0",
+    "raven": "^2.6.4",
+    "serverless-sentry-lib": "^1.1.2"
   }
 }
