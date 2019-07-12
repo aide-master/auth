@@ -11,6 +11,7 @@ plugins:
 provider:
   name: aws
   runtime: nodejs8.10
+  memorySize: 256
   environment:
     stage: ${opt:stage, self:provider.stage}
     jwtSecret: ${ssm:/${self:provider.environment.stage}/auth/jwtSecret}
