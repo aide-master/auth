@@ -7,8 +7,16 @@ import * as utils from './utils'
 import { CustomAuthorizerResult, APIGatewayProxyHandler, CustomAuthorizerHandler } from 'aws-lambda'
 import { init } from './db'
 import * as UserHelper from './user'
+import * as mongoose from 'mongoose'
 
 const RavenLambdaWrapper = require('serverless-sentry-lib')
+
+function wrap<T extends Function>(fn: T): T {
+  return RavenLambdaWrapper.handler(Raven, async function(...args: any[]) {
+    await init()
+    return fn(...args)
+  }) as T
+}
 
 // Help function to generate an IAM policy
 const generatePolicy = function (principalId: string, effect: string, resource: string | string[]): CustomAuthorizerResult {
@@ -31,7 +39,7 @@ const generatePolicy = function (principalId: string, effect: string, resource: 
   }
 }
 
-const _handler: CustomAuthorizerHandler = async event => {
+export const handler = wrap<CustomAuthorizerHandler>(async event => {
   const token = event.authorizationToken || ''
   try {
     const decoded: any = jwt.verify(token, process.env.jwtSecret || '')
@@ -39,20 +47,17 @@ const _handler: CustomAuthorizerHandler = async event => {
   } catch (error) {
     return generatePolicy('', 'Deny', event.methodArn)
   }
-}
-export const handler = RavenLambdaWrapper.handler(Raven, _handler)
+})
 
-const _test: APIGatewayProxyHandler = async (event, context) => {
+export const test = wrap<APIGatewayProxyHandler>(async (event, context) => {
   return {
     statusCode: 200,
     headers: { 'Content-Type': 'text/plain' },
     body: JSON.stringify({ event, context })
   }
-}
+})
 
-export const test = RavenLambdaWrapper.handler(Raven, _test)
-
-const _generate: APIGatewayProxyHandler = async event => {
+export const generate = wrap<APIGatewayProxyHandler>(async event => {
   const qs = event.queryStringParameters || {}
   const id = qs.id
   const expiresIn = qs.validity || '1d'
@@ -62,23 +67,18 @@ const _generate: APIGatewayProxyHandler = async event => {
     headers: { 'Content-Type': 'text/plain' },
     body: JSON.stringify({ accessToken })
   }
-}
-export const generate = RavenLambdaWrapper.handler(Raven, _generate)
+})
 
-const _githubAuth: APIGatewayProxyHandler = async event => {
-  await init()
+export const githubAuth = wrap<APIGatewayProxyHandler>(async event => {
   const qs = utils.parseReqBody(event.body)
   const code = qs.code
   const state = qs.state
   const { token } = await github.getAccessToken(code, state)
   const userInfo = await github.getUserInfo(token)
-  console.log('userInfo is: ', userInfo)
   const userId = await UserHelper.getUserIdByGithubUserInfo(userInfo)
   return {
     statusCode: 200,
     headers: { 'Content-Type': 'text/plain' },
     body: JSON.stringify({ userId })
   }
-}
-
-export const githubAuth = RavenLambdaWrapper.handler(Raven, _githubAuth)
+})

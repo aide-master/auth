@@ -1,4 +1,4 @@
-import { Schema, model, Document } from 'mongoose'
+import { Schema, Document, model } from 'mongoose'
 
 const { String } = Schema.Types
 

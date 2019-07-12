@@ -1,14 +1,14 @@
 import * as mongoose from 'mongoose'
 
-let conn: mongoose.Connection | null = null
+let cached = false
 
 const { dbHost, dbUser, dbPassword } = process.env
 
 const uri = `mongodb+srv://${dbUser}:${dbPassword}@${dbHost}/test?retryWrites=true&w=majority`
 
 export async function init () {
-  if (conn == null) {
-    conn = await mongoose.createConnection(uri, {
+  if (!cached) {
+    await mongoose.connect(uri, {
       useNewUrlParser: true,
       // Buffering means mongoose will queue up operations if it gets
       // disconnected from MongoDB and send them when it reconnects.
@@ -17,10 +17,5 @@ export async function init () {
       bufferMaxEntries: 0 // and MongoDB driver buffering
     })
   }
-}
-
-export async function getConnection (): Promise<mongoose.Connection> {
-  await init()
-  console.log('conn is: ', conn)
-  return conn!
+  cached = true
 }
