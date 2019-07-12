@@ -7,7 +7,6 @@ import * as utils from './utils'
 import { CustomAuthorizerResult, APIGatewayProxyHandler, CustomAuthorizerHandler } from 'aws-lambda'
 import { init } from './db'
 import * as UserHelper from './user'
-import * as mongoose from 'mongoose'
 
 const RavenLambdaWrapper = require('serverless-sentry-lib')
 
