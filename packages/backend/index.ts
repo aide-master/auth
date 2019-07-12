@@ -32,7 +32,7 @@ const generatePolicy = function (principalId: string, effect: string, resource: 
   }
 }
 
-export const handler: CustomAuthorizerHandler = async event => {
+const _handler: CustomAuthorizerHandler = async event => {
   const token = event.authorizationToken || ''
   try {
     const decoded: any = jwt.verify(token, process.env.jwtSecret || '')
@@ -41,8 +41,9 @@ export const handler: CustomAuthorizerHandler = async event => {
     return generatePolicy('', 'Deny', event.methodArn)
   }
 }
+export const handler = RavenLambdaWrapper.handler(Raven, _handler)
 
-export const test: APIGatewayProxyHandler = async (event, context) => {
+const _test: APIGatewayProxyHandler = async (event, context) => {
   return {
     statusCode: 200,
     headers: { 'Content-Type': 'text/plain' },
@@ -50,7 +51,9 @@ export const test: APIGatewayProxyHandler = async (event, context) => {
   }
 }
 
-export const generate: APIGatewayProxyHandler = async event => {
+export const test = RavenLambdaWrapper.handler(Raven, _test)
+
+const _generate: APIGatewayProxyHandler = async event => {
   const qs = event.queryStringParameters || {}
   const id = qs.id
   const expiresIn = qs.validity || '1d'
@@ -61,6 +64,7 @@ export const generate: APIGatewayProxyHandler = async event => {
     body: JSON.stringify({ accessToken })
   }
 }
+export const generate = RavenLambdaWrapper.handler(Raven, _generate)
 
 const _githubAuth: APIGatewayProxyHandler = async event => {
   await init()
