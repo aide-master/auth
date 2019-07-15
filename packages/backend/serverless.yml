@@ -25,12 +25,14 @@ provider:
 functions:
   auth:
     handler: index.handler
+
   test:
     handler: index.test
     events:
       - http:
           method: get
           path: /test
+          cors: true
           authorizer:
             name: auth
             resultTtlInSeconds: 0
@@ -53,6 +55,7 @@ functions:
       - http:
           method: post
           path: /github
+          cors: true
 
 custom:
   webpack:
