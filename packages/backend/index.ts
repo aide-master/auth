@@ -83,10 +83,9 @@ export const githubAuth = wrap<APIGatewayProxyHandler>(async event => {
     headers: {
       'Content-Type': 'text/plain',
       'Set-Cookie': cookie.serialize('token', accessToken, {
-        httpOnly: true,
-        domain: '.aidemaster.com'
+        httpOnly: true
       })
     },
-    body: JSON.stringify({ userId })
+    body: JSON.stringify({ token: accessToken })
   }
 })
