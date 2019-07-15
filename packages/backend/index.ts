@@ -7,6 +7,7 @@ import * as utils from './utils'
 import { CustomAuthorizerResult, APIGatewayProxyHandler, CustomAuthorizerHandler } from 'aws-lambda'
 import { init } from './db'
 import * as UserHelper from './user'
+import * as cookie from 'cookie'
 
 const RavenLambdaWrapper = require('serverless-sentry-lib')
 
@@ -75,9 +76,17 @@ export const githubAuth = wrap<APIGatewayProxyHandler>(async event => {
   const { token } = await github.getAccessToken(code, state)
   const userInfo = await github.getUserInfo(token)
   const userId = await UserHelper.getUserIdByGithubUserInfo(userInfo)
+  const expiresIn = '1m'
+  const accessToken = jwt.sign({ id: userId }, process.env.jwtSecret || '', { expiresIn })
   return {
     statusCode: 200,
-    headers: { 'Content-Type': 'text/plain' },
+    headers: {
+      'Content-Type': 'text/plain',
+      'Set-Cookie': cookie.serialize('token', accessToken, {
+        httpOnly: true,
+        domain: '.aidemaster.com'
+      })
+    },
     body: JSON.stringify({ userId })
   }
 })
