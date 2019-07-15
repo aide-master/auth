@@ -38,6 +38,10 @@ functions:
             resultTtlInSeconds: 0
             identitySource: method.request.header.Authorization
             type: token
+      - http:
+          method: get
+          path: /test2
+          cors: true
   generate:
     handler: index.generate
     events:

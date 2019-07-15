@@ -52,7 +52,10 @@ export const handler = wrap<CustomAuthorizerHandler>(async event => {
 export const test = wrap<APIGatewayProxyHandler>(async (event, context) => {
   return {
     statusCode: 200,
-    headers: { 'Content-Type': 'text/plain' },
+    headers: {
+      'Content-Type': 'text/plain',
+      'Set-Cookie': cookie.serialize('hello', 'world')
+    },
     body: JSON.stringify({ event, context })
   }
 })
@@ -83,7 +86,8 @@ export const githubAuth = wrap<APIGatewayProxyHandler>(async event => {
     headers: {
       'Content-Type': 'text/plain',
       'Set-Cookie': cookie.serialize('token', accessToken, {
-        httpOnly: true
+        httpOnly: true,
+        domain: 'aidemaster.com'
       })
     },
     body: JSON.stringify({ token: accessToken })
