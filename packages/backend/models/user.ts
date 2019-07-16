@@ -15,7 +15,8 @@ const UserSchema = new Schema({
   },
   profile: {
     type: ObjectId,
-    required: true
+    required: true,
+    unique: true
   },
   salt: String, // salt for password
   password: String // password

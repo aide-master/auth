@@ -18,7 +18,7 @@ const AuthSchema = new Schema({
     type: String,
     required: true
   },
-  id: { // auth type
+  id: { // auth id
     type: String,
     required: true
   },
@@ -29,5 +29,7 @@ const AuthSchema = new Schema({
 }, {
   timestamps: true
 })
+
+AuthSchema.index({ group: 1, type: 1, id: 1 }, { unique: true })
 
 export default model<Auth>('Auth', AuthSchema)
