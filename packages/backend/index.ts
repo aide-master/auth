@@ -76,7 +76,6 @@ export const test = wrap<APIGatewayProxyHandler>(async (event, context) => {
     headers: {
       'Content-Type': 'application/json',
       'Set-Cookie': cookie.serialize('hello', 'world', {
-        httpOnly: true,
         domain: '.aidemaster.com'
       })
     },
@@ -110,7 +109,6 @@ export const githubAuth = wrap<APIGatewayProxyHandler>(async event => {
     headers: {
       'Content-Type': 'application/json',
       'Set-Cookie': cookie.serialize('token', accessToken, {
-        httpOnly: true,
         domain: '.aidemaster.com'
       })
     },
