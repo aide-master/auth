@@ -6,7 +6,7 @@ const { dbHost, dbUser, dbPassword } = process.env
 
 const uri = `mongodb+srv://${dbUser}:${dbPassword}@${dbHost}/test?retryWrites=true&w=majority`
 
-export async function init () {
+export async function init (): Promise<void> {
   if (!cached) {
     await mongoose.connect(uri, {
       useNewUrlParser: true,

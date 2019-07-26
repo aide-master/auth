@@ -10,10 +10,10 @@ import * as UserHelper from './user'
 import * as cookie from 'cookie'
 import { ApiError } from './error'
 
-const RavenLambdaWrapper = require('serverless-sentry-lib')
+import * as RavenLambdaWrapper from 'serverless-sentry-lib'
 
-function wrap<T extends Function>(fn: T): T {
-  return RavenLambdaWrapper.handler(Raven, async function(...args: any[]) {
+function wrap<T extends Function> (fn: T): T {
+  return RavenLambdaWrapper.handler(Raven, async function (...args: any[]): Promise<any> {
     try {
       await init()
       const result = await fn(...args)

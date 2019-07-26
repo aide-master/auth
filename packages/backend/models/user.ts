@@ -3,9 +3,9 @@ import { Schema, Document, model } from 'mongoose'
 const { String, ObjectId } = Schema.Types
 
 interface User extends Document {
-  group: string;
-  salt?: string;
-  password?: string;
+  group: string
+  salt?: string
+  password?: string
 }
 
 const UserSchema = new Schema({

@@ -1,0 +1,16 @@
+{
+  "extends": ["standard-with-typescript", "plugin:react/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["react", "react-hooks"],
+  "rules": {
+    "@typescript-eslint/explicit-function-return-type": "off"
+  },
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "settings": {
+    "react": {
+      "version": "999.999.999"
+    }
+  }
+}

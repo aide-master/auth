@@ -26,7 +26,7 @@ const Home: React.FC = () => {
 }
 
 const AsyncGithubCallback = Loadable({
-  loader: () => import('./callbacks/github'),
+  loader: async () => import('./callbacks/github'),
   loading: Loading
 })
 

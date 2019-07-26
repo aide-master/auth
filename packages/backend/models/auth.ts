@@ -3,10 +3,10 @@ import { Schema, Document, model } from 'mongoose'
 const { String, ObjectId } = Schema.Types
 
 interface Auth extends Document {
-  group: string;
-  type: string;
-  id: string;
-  userId: string;
+  group: string
+  type: string
+  id: string
+  userId: string
 }
 
 const AuthSchema = new Schema({
