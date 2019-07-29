@@ -1,3 +1,9 @@
 export const auth = {
-  state: {}
+  state: {},
+  effects: {
+    login: async () => {
+      console.log('login')
+      // do nothing
+    }
+  }
 }

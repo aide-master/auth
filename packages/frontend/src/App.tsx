@@ -8,13 +8,14 @@ import Loading from './components/loading'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Loadable from 'react-loadable'
 import { useDispatch } from 'react-redux'
-import { authLogin } from './actions'
 
 const Home: React.FC = () => {
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(authLogin)
-  }, [])
+    dispatch({
+      type: 'auth/login'
+    })
+  }, [dispatch])
   return (
     <div className='App'>
       <header className='App-header'>
