@@ -102,7 +102,7 @@ export const githubAuth = wrap<APIGatewayProxyHandler>(async event => {
   const { token } = await github.getAccessToken(code, state)
   const userInfo = await github.getUserInfo(token)
   const userId = await UserHelper.getUserIdByGithubUserInfo(userInfo)
-  const expiresIn = '1m'
+  const expiresIn = '10d'
   const accessToken = jwt.sign({ id: userId }, process.env.jwtSecret || '', { expiresIn })
   return {
     statusCode: 200,
