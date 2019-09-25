@@ -125,11 +125,13 @@ export const profile = wrap<APIGatewayProxyHandler>(async (event, context) => {
     }
   }
   const userId = authorizer.principalId
+  console.log('userId is: ', userId)
+  const userInfo = await UserHelper.getUserById(userId)
   return {
     statusCode: 200,
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(UserHelper.getUserById(userId))
+    body: JSON.stringify(userInfo)
   }
 })
