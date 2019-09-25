@@ -38,6 +38,11 @@ export const getUserIdByGithubUserInfo = async (userInfo: UserInfo): Promise<str
   return user._id
 }
 
-export const getUserById = async (id: number) => {
-  return User.findById(id)
+export const getUserById = async (id: string) => {
+  const user = await User.findById(id)
+  let profile
+  if (user) {
+    profile = await Profile.findById(user.profile)
+  }
+  return { id, profile }
 }
