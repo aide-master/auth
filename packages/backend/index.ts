@@ -115,3 +115,21 @@ export const githubAuth = wrap<APIGatewayProxyHandler>(async event => {
     body: JSON.stringify({ token: accessToken })
   }
 })
+
+export const profile = wrap<APIGatewayProxyHandler>(async (event, context) => {
+  const authorizer = event.requestContext.authorizer
+  if (!authorizer || !authorizer.principalId) {
+    return {
+      statusCode: 401,
+      body: ''
+    }
+  }
+  const userId = authorizer.principalId
+  return {
+    statusCode: 200,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(UserHelper.getUserById(userId))
+  }
+})

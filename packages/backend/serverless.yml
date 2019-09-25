@@ -25,6 +25,19 @@ provider:
 functions:
   auth:
     handler: index.handler
+  
+  profile:
+    handler: index.profile
+    events:
+      - http:
+          method: get
+          path: /profile
+          cors: true
+          authorizer:
+            name: auth
+            resultTtlInSeconds: 0
+            identitySource: method.request.header.Authorization
+            type: token
 
   test:
     handler: index.test

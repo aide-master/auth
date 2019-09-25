@@ -37,3 +37,7 @@ export const getUserIdByGithubUserInfo = async (userInfo: UserInfo): Promise<str
   await newAuth.save()
   return user._id
 }
+
+export const getUserById = async (id: number) => {
+  return User.findById(id)
+}
