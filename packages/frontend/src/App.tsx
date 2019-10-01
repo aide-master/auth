@@ -13,7 +13,7 @@ const Home: React.FC = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch({
-      type: 'auth/login'
+      type: 'auth/getProfile'
     })
   }, [dispatch])
   return (
