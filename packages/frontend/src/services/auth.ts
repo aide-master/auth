@@ -8,7 +8,12 @@ async function githubLogin (code: string) {
 }
 
 export async function getProfile () {
-  const profile = await rest.get('/api/profile')
+  let profile
+  try {
+    profile = await rest.get('/api/profile')
+  } catch (error) {
+    console.error(error)
+  }
   dispatch({
     type: 'auth/profile',
     payload: profile
