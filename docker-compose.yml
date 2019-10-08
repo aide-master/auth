@@ -9,7 +9,6 @@ services:
   backend:
     build:
       context: ./packages/backend
-      dockerfile: ./packages/backend/Dockerfile
     command: npm start
     environment:
       NODE_ENV: production
@@ -17,7 +16,6 @@ services:
   frontend:
     build:
       context: ./packages/frontend
-      dockerfile: ./packages/frontend/Dockerfile
     command: npm start
     environment:
       NODE_ENV: production
