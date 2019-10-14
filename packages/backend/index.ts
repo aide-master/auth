@@ -131,6 +131,6 @@ export const profile = wrap<APIGatewayProxyHandler>(async (event) => {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(userInfo)
+    body: JSON.stringify(userInfo.profile)
   }
 })
