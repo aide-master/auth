@@ -12,6 +12,7 @@
     "@types/react-router-dom": "^4.3.4",
     "axios": "^0.19.0",
     "js-cookie": "^2.2.0",
+    "lodash": "^4.17.15",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-loadable": "^5.5.0",
@@ -42,6 +43,7 @@
   },
   "devDependencies": {
     "@types/js-cookie": "^2.2.2",
+    "@types/lodash": "^4.14.144",
     "@types/react-redux": "^7.1.1",
     "@types/redux-actions": "^2.6.1",
     "cross-env": "^6.0.3"

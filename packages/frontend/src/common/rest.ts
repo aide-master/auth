@@ -8,8 +8,7 @@ function getAuthHeader () {
 
 function getOptions (config?: AxiosRequestConfig) {
   const options: AxiosRequestConfig = Object.assign({}, config, {
-    headers: getAuthHeader(),
-    withCredentials: true
+    headers: getAuthHeader()
   })
   return options
 }
