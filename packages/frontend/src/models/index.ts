@@ -1,16 +1,16 @@
 import { createModel } from '@rematch/core'
 import { login, getProfile } from '../services/auth'
 
-export type AuthState = {
-  name: string;
-  email: string;
-  avatar: string;
-  id: string;
-  token: string;
+export interface AuthState {
+  name: string
+  email: string
+  avatar: string
+  id: string
+  token: string
 }
 
-export type LoginOption = {
-  github?: string;
+export interface LoginOption {
+  github?: string
 }
 
 export const auth = createModel<AuthState>({

@@ -1,4 +1,3 @@
-import * as utils from '../common/utils'
 import { LoginOption } from '../models'
 import * as rest from '../common/rest'
 import { dispatch } from '../redux'

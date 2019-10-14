@@ -116,7 +116,7 @@ export const githubAuth = wrap<APIGatewayProxyHandler>(async event => {
   }
 })
 
-export const profile = wrap<APIGatewayProxyHandler>(async (event, context) => {
+export const profile = wrap<APIGatewayProxyHandler>(async (event) => {
   const authorizer = event.requestContext.authorizer
   if (!authorizer || !authorizer.principalId) {
     return {
@@ -125,12 +125,11 @@ export const profile = wrap<APIGatewayProxyHandler>(async (event, context) => {
     }
   }
   const userId = authorizer.principalId
-  console.log('userId is: ', userId)
   const userInfo = await UserHelper.getUserById(userId)
   return {
     statusCode: 200,
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify(userInfo)
   }

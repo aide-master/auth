@@ -3,13 +3,13 @@ import { Schema, Document, model } from 'mongoose'
 const { String } = Schema.Types
 
 interface Profile extends Document {
-  nickname: string;
-  gender?: string;
-  birthday?: Date;
-  address?: string;
-  zipcode?: string;
-  email?: string;
-  avatar?: string;
+  nickname: string
+  gender?: string
+  birthday?: Date
+  address?: string
+  zipcode?: string
+  email?: string
+  avatar?: string
 }
 
 const ProfileSchema = new Schema({
