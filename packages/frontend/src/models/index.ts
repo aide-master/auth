@@ -17,7 +17,7 @@ export const auth = createModel<AuthState>({
   state: {},
   reducers: {
     profile (state: AuthState, payload: AuthState) {
-      return Object.assign({}, payload)
+      return Object.assign({}, { profile: payload })
     }
   },
   effects: {
