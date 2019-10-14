@@ -23,7 +23,7 @@
     "use-react-router": "^1.0.7"
   },
   "scripts": {
-    "start": "PORT=3005 react-scripts start",
+    "start": "cross-env PORT=3005 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -43,6 +43,7 @@
   "devDependencies": {
     "@types/js-cookie": "^2.2.2",
     "@types/react-redux": "^7.1.1",
-    "@types/redux-actions": "^2.6.1"
+    "@types/redux-actions": "^2.6.1",
+    "cross-env": "^6.0.3"
   }
 }
