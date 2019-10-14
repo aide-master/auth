@@ -3,7 +3,8 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['react', 'react-hooks'],
   parserOptions: {
-    project: './tsconfig.json'
+    project: './tsconfig.json',
+    "warnOnUnsupportedTypeScriptVersion": false
   },
   overrides: [
     {
