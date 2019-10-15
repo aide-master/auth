@@ -9,7 +9,10 @@ const GithubCallback: React.FC = () => {
     const params = new URLSearchParams(location.search)
     const code = params.get('code') || ''
     const state = params.get('state') || ''
+
+    // login
     login(code, state).then(() => {
+      // return to home page
       history.push('/')
     })
   }, [location.search])
