@@ -4,12 +4,14 @@ import { login } from '../../providers/github'
 import './github.css'
 
 const GithubCallback: React.FC = () => {
-  const { location } = useReactRouter()
+  const { location, history } = useReactRouter()
   useEffect(() => {
     const params = new URLSearchParams(location.search)
     const code = params.get('code') || ''
     const state = params.get('state') || ''
-    login(code, state)
+    login(code, state).then(() => {
+      history.push('/')
+    })
   }, [location.search])
   return (
     <div className='Github'>

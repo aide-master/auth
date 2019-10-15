@@ -10,6 +10,5 @@ export const AUTH_LINK = `https://github.com/login/oauth/authorize?client_id=${C
 export async function login (code: string, state: string) {
   const res = await rest.post('/api/github', { code, state })
   const token = _.get(res.data, 'token')
-  console.log('token is: ', token)
   utils.setCookie('token', token)
 }
