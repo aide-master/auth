@@ -10,7 +10,14 @@ module.exports = {
     {
       files: ['*.ts', '*.tsx'],
       rules: {
-        '@typescript-eslint/explicit-function-return-type': 'off'
+        '@typescript-eslint/explicit-function-return-type': 'off',
+        'react/prop-types': 'off',
+        "@typescript-eslint/promise-function-async": [
+          "error",
+          {
+            "allowAny": true
+          }
+        ]
       }
     }
   ],
